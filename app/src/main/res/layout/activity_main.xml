@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="project.mayikai.hellobaidumap.MainActivity">
+
+    <com.baidu.mapapi.map.MapView
+        android:id="@+id/bmapView"
+        android:layout_width="match_parent"
+        android:layout_height="500dp"
+        android:clickable="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_above="@+id/button2"/>
+    <Button
+        android:layout_width="180dp"
+        android:layout_height="wrap_content"
+        android:background="#000000"
+        android:text="ENEMIES"
+        android:textStyle="italic"
+        android:textSize="20sp"
+        android:textColor="#cc0000"
+        android:layout_alignBottom="@+id/friends"
+        android:layout_alignLeft="@+id/bmapView"
+        android:layout_alignStart="@+id/bmapView"
+        android:id="@+id/button2"
+        />
+    <Button
+        android:layout_width="190dp"
+        android:layout_height="wrap_content"
+        android:background="#000000"
+        android:text="FRIENDS"
+        android:textSize="20sp"
+        android:textColor="#00cc00"
+        android:textStyle="italic"
+        android:id="@+id/friends"
+        android:layout_alignParentBottom="true"
+        android:layout_alignRight="@+id/bmapView"
+        android:layout_alignEnd="@+id/bmapView"/>
+    <Button
+        android:id="@+id/refresh"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:background="@drawable/refresh"
+        android:layout_above="@+id/button2"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"/>
+</RelativeLayout>

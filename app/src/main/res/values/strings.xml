@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Tracer</string>
+    
+    <item name="tag" type="id"></item>
+</resources>
