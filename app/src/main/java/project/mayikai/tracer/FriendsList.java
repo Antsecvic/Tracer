@@ -2,6 +2,7 @@ package project.mayikai.tracer;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -32,8 +33,10 @@ public class FriendsList extends Activity{
     String name;
     String number;
     ArrayList<Item> myFriends;
+    private int RequeseCode = 1500;
+    private Context context;
 
-    public void onCreate(final Bundle savedInstanceState){
+    public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.friends_list);
 
@@ -93,8 +96,9 @@ public class FriendsList extends Activity{
                 Intent intent =  new Intent(FriendsList.this,showInformation.class);
                 bundle.putSerializable("name",myFriends.get(position).getName());
                 bundle.putSerializable("number",myFriends.get(position).getNumber());
+                bundle.putSerializable("position",Integer.toString(position));
                 intent.putExtras(bundle);
-                startActivity(intent);
+                startActivityForResult(intent, RequeseCode);
             }
         });
 
@@ -104,8 +108,40 @@ public class FriendsList extends Activity{
                 finish();
             }
         });
+    }
+
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        final int position;
+        switch (resultCode) {
+            case RESULT_OK: {
+                Bundle bundle = data.getExtras();
+                String NAME = bundle.getString("name");
+                String number = bundle.getString("number");
+                position = Integer.parseInt(bundle.getString("position"));
+                myFriends.get(position).setName(NAME);
+                myFriends.get(position).setNumber(number);
+                saveObject("friendsList.dat");
+                myAdapter = new MyAdapter(FriendsList.this, myFriends);
+                friendsList.setAdapter(myAdapter);
+                break;
+            }
+            case 666: {
+                Bundle bundle = data.getExtras();
+                position = Integer.parseInt(bundle.getString("position"));
+                myFriends.remove(position);
+                saveObject("friendsList.dat");
+                myAdapter = new MyAdapter(FriendsList.this, myFriends);
+                friendsList.setAdapter(myAdapter);
+                break;
+            }
+            default:
+                break;
+        }
 
     }
+
+
 
     //存放list
     public void saveObject(String name) {
