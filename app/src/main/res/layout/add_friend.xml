@@ -27,7 +27,6 @@
             android:id="@+id/new_number"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="number"
             android:hint="请填写朋友电话号码"/>
     </TableRow>
 

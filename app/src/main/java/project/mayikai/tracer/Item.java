@@ -8,6 +8,7 @@ import java.io.Serializable;
 public class Item implements Serializable {
     private String name;
     private String number;
+    private String location;
 
     public String getName(){
         return this.name;
@@ -24,4 +25,13 @@ public class Item implements Serializable {
     public void setNumber(String number){
         this.number = number;
     }
+
+    public String getLocation(){
+        return this.location;
+    }
+
+    public void setLocation(String location){
+        this.location = location;
+    }
+
 }

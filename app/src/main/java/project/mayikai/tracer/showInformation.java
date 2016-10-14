@@ -17,6 +17,7 @@ public class showInformation extends Activity {
 
     String friend_name;
     String friend_number;
+    String friend_location;
     int position;
     EditText number;
     EditText location;
@@ -54,10 +55,12 @@ public class showInformation extends Activity {
         final Bundle bundle = intent.getExtras();
         friend_name = bundle.getString("name");
         friend_number = bundle.getString("number");
+        friend_location = bundle.getString("location");
         position = Integer.parseInt(bundle.getString("position"));
 
         name.setText(friend_name);
         number.setText(friend_number);
+        location.setText(friend_location);
 
         radar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -80,8 +83,10 @@ public class showInformation extends Activity {
                 Bundle bundle1 = new Bundle();
                 String NAME = name.getText().toString();
                 String NUMBER = number.getText().toString();
+                String LOCATION = location.getText().toString();
                 bundle1.putSerializable("name",NAME);
                 bundle1.putSerializable("number",NUMBER);
+                bundle1.putSerializable("location",LOCATION);
                 bundle1.putSerializable("position",Integer.toString(position));
                 intent.putExtras(bundle1);
                 showInformation.this.setResult(RESULT_OK, intent);

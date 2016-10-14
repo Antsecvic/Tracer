@@ -32,9 +32,9 @@ public class FriendsList extends Activity{
     MyAdapter myAdapter;
     String name;
     String number;
-    ArrayList<Item> myFriends;
+    static ArrayList<Item> myFriends;
     private int RequeseCode = 1500;
-    private Context context;
+    private static Context context;
 
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
@@ -96,6 +96,7 @@ public class FriendsList extends Activity{
                 Intent intent =  new Intent(FriendsList.this,showInformation.class);
                 bundle.putSerializable("name",myFriends.get(position).getName());
                 bundle.putSerializable("number",myFriends.get(position).getNumber());
+                bundle.putSerializable("location",myFriends.get(position).getLocation());
                 bundle.putSerializable("position",Integer.toString(position));
                 intent.putExtras(bundle);
                 startActivityForResult(intent, RequeseCode);
@@ -118,9 +119,11 @@ public class FriendsList extends Activity{
                 Bundle bundle = data.getExtras();
                 String NAME = bundle.getString("name");
                 String number = bundle.getString("number");
+                String location = bundle.getString("location");
                 position = Integer.parseInt(bundle.getString("position"));
                 myFriends.get(position).setName(NAME);
                 myFriends.get(position).setNumber(number);
+                myFriends.get(position).setLocation(location);
                 saveObject("friendsList.dat");
                 myAdapter = new MyAdapter(FriendsList.this, myFriends);
                 friendsList.setAdapter(myAdapter);
