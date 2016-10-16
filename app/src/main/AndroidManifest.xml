@@ -55,6 +55,12 @@
 
         <activity android:name=".showInformation">
         </activity>
+
+        <activity android:name=".EnemiesList">
+        </activity>
+
+        <activity android:name=".showEnemiesInformation">
+        </activity>
     </application>
 
 </manifest>

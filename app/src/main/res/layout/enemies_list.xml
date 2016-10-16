@@ -1,24 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
     <TextView
-        android:text="FRIENDS"
+        android:text="ENEMIES"
         android:textStyle="italic"
         android:textColor="#ffffff"
         android:textSize="30sp"
         android:textAlignment="center"
-        android:background="#00cc00"
+        android:background="#cc0000"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:id="@+id/textView"/>
     <Button
-        android:id="@+id/add"
+        android:id="@+id/add_enemy"
         android:text="+"
         android:textColor="#ffffff"
         android:textSize="20sp"
         android:textAlignment="center"
-        android:background="#00cc00"
+        android:background="#cc0000"
         android:layout_width="25dp"
         android:layout_height="25dp"
         android:layout_marginLeft="28dp"
@@ -31,7 +32,7 @@
         android:id="@+id/edit"
         android:textAllCaps="false"
         android:textStyle="italic"
-        android:background="#00cc00"
+        android:background="#cc0000"
         android:layout_width="35dp"
         android:textColor="#ffffff"
         android:layout_marginTop="8dp"
@@ -45,7 +46,7 @@
         android:layout_alignParentEnd="true"/>
     <ListView
         android:background="#000000"
-        android:id="@+id/friendsList"
+        android:id="@+id/enemiesList"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/radar"
@@ -65,12 +66,12 @@
         android:layout_alignParentStart="true"/>
 
     <Button
-        android:id="@+id/enemies_list"
+        android:id="@+id/friends_list"
         android:background="#000000"
         android:layout_width="180dp"
         android:layout_height="30dp"
-        android:text="ENEMIES"
-        android:textColor="#cc0000"
+        android:text="FRIENDS"
+        android:textColor="#00CC00"
         android:textSize="25sp"
         android:textStyle="italic"
         android:textAlignment="center"

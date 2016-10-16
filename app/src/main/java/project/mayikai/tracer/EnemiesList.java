@@ -20,53 +20,51 @@ import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
 /**
- * Created by Administrator on 2016/10/9.
+ * Created by Administrator on 2016/10/15.
  */
-public class FriendsList extends Activity{
-    ListView friendsList;
+public class EnemiesList extends Activity {
+    ListView enemiesList;
     Button add;
     Button radar;
-    Button enemies_list;
+    Button friends_list;
     EditText new_name;
     EditText new_number;
-    MyAdapter myAdapter;
+    MyAdapter2 myAdapter2;
     String name;
     String number;
-    static ArrayList<Item> myFriends;
+    static ArrayList<Item> myEnemies;
     private int RequeseCode = 1500;
-
 
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.friends_list);
+        setContentView(R.layout.enemies_list);
 
-        friendsList = (ListView) findViewById(R.id.friendsList);
-        add = (Button) findViewById(R.id.add);
-        radar = (Button) findViewById(R.id.radar);
-
+        enemiesList = (ListView) this.findViewById(R.id.enemiesList);
+        add = (Button) this.findViewById(R.id.add_enemy);
+        radar = (Button) this.findViewById(R.id.radar);
 
         try{
-            myFriends = (ArrayList<Item>) getObject("friendsList.dat");
+            myEnemies = (ArrayList<Item>) getObject("enemiesList.dat");
         }catch (NullPointerException e){
             e.printStackTrace();
         }
-        if(null == myFriends) {
-            myFriends = new ArrayList<Item>();
+        if(null == myEnemies) {
+            myEnemies = new ArrayList<Item>();
         }
-        saveObject("friendsList.dat");
+        saveObject("enemiesList.dat");
         add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                LayoutInflater factory = LayoutInflater.from(FriendsList.this);
+                LayoutInflater factory = LayoutInflater.from(EnemiesList.this);
                 //得到自定义对话框
                 final View DialogView = factory.inflate(R.layout.add_friend, null);
 
                 new_name = (EditText) DialogView.findViewById(R.id.new_name);
                 new_number = (EditText) DialogView.findViewById(R.id.new_number);
 
-                AlertDialog dialog = new AlertDialog.Builder(FriendsList.this)
-                        .setTitle("ADD FRIEND")
+                AlertDialog dialog = new AlertDialog.Builder(EnemiesList.this)
+                        .setTitle("ADD ENEMY")
                         .setView(DialogView)
                         .setPositiveButton("确定", new DialogInterface.OnClickListener() {
                             @Override
@@ -76,8 +74,8 @@ public class FriendsList extends Activity{
                                 Item item = new Item();
                                 item.setName(name);
                                 item.setNumber(number);
-                                myFriends.add(item);
-                                saveObject("friendsList.dat");
+                                myEnemies.add(item);
+                                saveObject("enemiesList.dat");
                             }
                         }).setNegativeButton("取消", null)
                         .create();
@@ -85,18 +83,17 @@ public class FriendsList extends Activity{
             }
         });
 
-        myAdapter = new MyAdapter(FriendsList.this, myFriends);
-        friendsList.setAdapter(myAdapter);
+        myAdapter2 = new MyAdapter2(EnemiesList.this, myEnemies);
+        enemiesList.setAdapter(myAdapter2);
 
-
-        friendsList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        enemiesList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Bundle bundle = new Bundle();
-                Intent intent = new Intent(FriendsList.this, showInformation.class);
-                bundle.putSerializable("name", myFriends.get(position).getName());
-                bundle.putSerializable("number", myFriends.get(position).getNumber());
-                bundle.putSerializable("location", myFriends.get(position).getLocation());
+                Intent intent = new Intent(EnemiesList.this, showEnemiesInformation.class);
+                bundle.putSerializable("name", myEnemies.get(position).getName());
+                bundle.putSerializable("number", myEnemies.get(position).getNumber());
+                bundle.putSerializable("location", myEnemies.get(position).getLocation());
                 bundle.putSerializable("position", Integer.toString(position));
                 intent.putExtras(bundle);
                 startActivityForResult(intent, RequeseCode);
@@ -106,16 +103,16 @@ public class FriendsList extends Activity{
         radar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(FriendsList.this,MainActivity.class);
+                Intent intent = new Intent(EnemiesList.this,MainActivity.class);
                 startActivity(intent);
             }
         });
 
-        enemies_list = (Button) this.findViewById(R.id.enemies_list);
-        enemies_list.setOnClickListener(new View.OnClickListener() {
+        friends_list = (Button) this.findViewById(R.id.friends_list);
+        friends_list.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(FriendsList.this,EnemiesList.class);
+                Intent intent = new Intent(EnemiesList.this,FriendsList.class);
                 startActivity(intent);
             }
         });
@@ -131,29 +128,27 @@ public class FriendsList extends Activity{
                 String number = bundle.getString("number");
                 String location = bundle.getString("location");
                 position = Integer.parseInt(bundle.getString("position"));
-                myFriends.get(position).setName(NAME);
-                myFriends.get(position).setNumber(number);
-                myFriends.get(position).setLocation(location);
-                saveObject("friendsList.dat");
-                myAdapter = new MyAdapter(FriendsList.this, myFriends);
-                friendsList.setAdapter(myAdapter);
+                myEnemies.get(position).setName(NAME);
+                myEnemies.get(position).setNumber(number);
+                myEnemies.get(position).setLocation(location);
+                saveObject("enemiesList.dat");
+                myAdapter2 = new MyAdapter2(EnemiesList.this, myEnemies);
+                enemiesList.setAdapter(myAdapter2);
                 break;
             }
             case 666: {
                 Bundle bundle = data.getExtras();
                 position = Integer.parseInt(bundle.getString("position"));
-                myFriends.remove(position);
-                saveObject("friendsList.dat");
-                myAdapter = new MyAdapter(FriendsList.this, myFriends);
-                friendsList.setAdapter(myAdapter);
+                myEnemies.remove(position);
+                saveObject("enemiesList.dat");
+                myAdapter2 = new MyAdapter2(EnemiesList.this, myEnemies);
+                enemiesList.setAdapter(myAdapter2);
                 break;
             }
             default:
                 break;
         }
     }
-
-
 
     //存放list
     public void saveObject(String name) {
@@ -162,7 +157,7 @@ public class FriendsList extends Activity{
         try {
             fos = this.openFileOutput(name, MODE_PRIVATE);
             oos = new ObjectOutputStream(fos);
-            oos.writeObject(myFriends);
+            oos.writeObject(myEnemies);
         } catch (Exception e) {
             e.printStackTrace();
             //这里是保存文件产生异常
@@ -218,9 +213,4 @@ public class FriendsList extends Activity{
         //读取产生异常，返回null
         return null;
     }
-
 }
-
-
-
-

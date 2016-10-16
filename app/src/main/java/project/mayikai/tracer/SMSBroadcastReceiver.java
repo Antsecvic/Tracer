@@ -15,7 +15,6 @@ import java.util.ArrayList;
  * Created by Administrator on 2016/10/13.
  */
 public class SMSBroadcastReceiver extends BroadcastReceiver {
-    static String BODY;
     private Context context;
     @Override
     public void onReceive(Context context,Intent intent){
@@ -37,7 +36,13 @@ public class SMSBroadcastReceiver extends BroadcastReceiver {
                 for(int i = 0;i < FriendsList.myFriends.size();i++){
                     if ((FriendsList.myFriends.get(i).getNumber()).equals(sender)){
                         FriendsList.myFriends.get(i).setLocation(body);
-                        saveObject("friendsList.dat");
+                        saveObject("friendsList.dat","friends");
+                    }
+                }
+                for(int i = 0;i < EnemiesList.myEnemies.size();i++){
+                    if ((EnemiesList.myEnemies.get(i).getNumber()).equals(sender)){
+                        EnemiesList.myEnemies.get(i).setLocation(body);
+                        saveObject("enemiesList.dat","enemies");
                     }
                 }
             }
@@ -45,13 +50,16 @@ public class SMSBroadcastReceiver extends BroadcastReceiver {
     }
 
     //存放list
-    public void saveObject(String name) {
+    public void saveObject(String name,String Type) {
         FileOutputStream fos = null;
         ObjectOutputStream oos = null;
         try {
             fos = SMSBroadcastReceiver.this.context.openFileOutput(name, SMSBroadcastReceiver.this.context.MODE_PRIVATE);
             oos = new ObjectOutputStream(fos);
-            oos.writeObject(FriendsList.myFriends);
+            if(Type.equals("friends"))
+                oos.writeObject(FriendsList.myFriends);
+            else
+                oos.writeObject(EnemiesList.myEnemies);
         } catch (Exception e) {
             e.printStackTrace();
             //这里是保存文件产生异常

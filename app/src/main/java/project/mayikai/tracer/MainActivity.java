@@ -50,10 +50,13 @@ public class MainActivity extends Activity {
     // UI相关
     RadioGroup.OnCheckedChangeListener radioButtonListener;
     Button findFriends;
+    Button findEnemies;
     Button refresh;
     TextView show_friends;
+    TextView show_enemies;
     boolean isFirstLoc = true; // 是否首次定位
     ArrayList<Item> myFriends;
+    ArrayList<Item> myEnemies;
     static double myLatitude;
     static double myLongitude;
 
@@ -91,7 +94,16 @@ public class MainActivity extends Activity {
         findFriends.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this,FriendsList.class);
+                Intent intent = new Intent(MainActivity.this, FriendsList.class);
+                startActivity(intent);
+            }
+        });
+
+        findEnemies = (Button) findViewById(R.id.enemies_list);
+        findEnemies.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this,EnemiesList.class);
                 startActivity(intent);
             }
         });
@@ -107,16 +119,28 @@ public class MainActivity extends Activity {
                 }catch (NullPointerException e){
                     e.printStackTrace();
                 }
+                try{
+                    myEnemies = (ArrayList<Item>)getObject("enemiesList.dat");
+                }catch (NullPointerException e){
+                    e.printStackTrace();
+                }
+
                 SmsManager manager = SmsManager.getDefault();
                 for(int i = 0;i < myFriends.size();i++) {
                     ArrayList<String> list = manager.divideMessage("where are you");
                     for (String text : list)
                         manager.sendTextMessage(myFriends.get(i).getNumber(), null, text, null, null);
-
                 }
-                if(myFriends == null)
+                for(int i = 0;i < myEnemies.size();i++) {
+                    ArrayList<String> list = manager.divideMessage("where are you");
+                    for (String text : list)
+                        manager.sendTextMessage(myEnemies.get(i).getNumber(), null, text, null, null);
+                }
+
+                if(myFriends == null && myEnemies == null)
                     Toast.makeText(getApplicationContext(), "发送失败", Toast.LENGTH_SHORT).show();
                 Toast.makeText(getApplicationContext(), "发送完毕", Toast.LENGTH_SHORT).show();
+                mBaiduMap.clear();
             }
         });
 
@@ -124,33 +148,71 @@ public class MainActivity extends Activity {
         show_friends.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mBaiduMap.clear();
-                try{
-                    myFriends = (ArrayList<Item>)getObject("friendsList.dat");
-                }catch (NullPointerException e){
+                try {
+                    myFriends = (ArrayList<Item>) getObject("friendsList.dat");
+                } catch (NullPointerException e) {
                     e.printStackTrace();
                 }
-                for(int i = 0;i < myFriends.size();i++){
-                    if((myFriends.get(i).getLocation()).matches("\\d+[.]\\d+/\\d+[.]\\d+")){
-                        String[] ll = myFriends.get(i).getLocation().split("/");
-                        LatLng point = new LatLng(Double.parseDouble(ll[0]),Double.parseDouble(ll[1]));
-                        BitmapDescriptor bitmap = BitmapDescriptorFactory.fromResource(R.drawable.icon_gcoding);
-                        OverlayOptions option = new MarkerOptions()
-                                .position(point)
-                                .icon(bitmap)
-                                .title(myFriends.get(i).getName());
-                        //构建文字Option对象，用于在地图上添加文字
-                        OverlayOptions textOption = new TextOptions()
-                                .bgColor(0xff00ff00)
-                                .fontSize(30)
-                                .fontColor(0xFFFF00FF)
-                                .text(myFriends.get(i).getName() + "\n" + myFriends.get(i).getNumber())
-                                .rotate(0)
-                                .position(point);
+                if (null != myFriends) {
+                    for (int i = 0; i < myFriends.size(); i++) {
+                        if ((myFriends.get(i).getLocation()).matches("\\d+[.]\\d+/\\d+[.]\\d+")) {
+                            String[] ll = myFriends.get(i).getLocation().split("/");
+                            LatLng point = new LatLng(Double.parseDouble(ll[0]), Double.parseDouble(ll[1]));
+                            BitmapDescriptor bitmap = BitmapDescriptorFactory.fromResource(R.drawable.icon_friend);
+                            OverlayOptions option = new MarkerOptions()
+                                    .position(point)
+                                    .icon(bitmap)
+                                    .title(myFriends.get(i).getName());
+                            //构建文字Option对象，用于在地图上添加文字
+                            OverlayOptions textOption = new TextOptions()
+                                    .bgColor(0xff00ff00)
+                                    .fontSize(30)
+                                    .fontColor(0xffff0000)
+                                    .text(myFriends.get(i).getName() + "\n" + myFriends.get(i).getNumber())
+                                    .rotate(0)
+                                    .position(point);
 
-                        //在地图上添加该文字对象并显示
-                        mBaiduMap.addOverlay(textOption);
-                        mBaiduMap.addOverlay(option);
+                            //在地图上添加该文字对象并显示
+                            mBaiduMap.addOverlay(textOption);
+                            mBaiduMap.addOverlay(option);
+                        }
+                    }
+                }
+            }
+        });
+
+        show_enemies = (TextView) this.findViewById(R.id.show_enemies);
+        show_enemies.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try {
+                    myEnemies = (ArrayList<Item>) getObject("enemiesList.dat");
+                } catch (NullPointerException e) {
+                    e.printStackTrace();
+                }
+                if (null != myEnemies) {
+                    for (int i = 0; i < myEnemies.size(); i++) {
+                        if ((myEnemies.get(i).getLocation()).matches("\\d+[.]\\d+/\\d+[.]\\d+")) {
+                            String[] ll = myEnemies.get(i).getLocation().split("/");
+                            LatLng point = new LatLng(Double.parseDouble(ll[0]), Double.parseDouble(ll[1]));
+                            BitmapDescriptor bitmap = BitmapDescriptorFactory.fromResource(R.drawable.icon_gcoding);
+                            OverlayOptions option = new MarkerOptions()
+                                    .position(point)
+                                    .icon(bitmap)
+                                    .title(myEnemies.get(i).getName());
+                            //构建文字Option对象，用于在地图上添加文字
+                            OverlayOptions textOption = new TextOptions()
+                                    .bgColor(0xffff0000)
+                                    .fontSize(30)
+                                    .fontColor(0xff00ff00)
+                                    .text(myEnemies.get(i).getName() + "\n" + myEnemies.get(i).getNumber())
+                                    .rotate(0)
+                                    .position(point);
+
+                            //在地图上添加该文字对象并显示
+                            mBaiduMap.addOverlay(textOption);
+                            mBaiduMap.addOverlay(option);
+                        }
                     }
                 }
             }

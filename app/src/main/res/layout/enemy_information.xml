@@ -3,14 +3,14 @@
               android:orientation="vertical"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
-              android:background="#000000">
+                android:background="#000000">
     <TextView
-        android:text="FRIENDS"
+        android:text="ENEMIES"
         android:textStyle="italic"
         android:textColor="#ffffff"
         android:textSize="30sp"
         android:textAlignment="center"
-        android:background="#00cc00"
+        android:background="#cc0000"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:id="@+id/textView"/>
@@ -23,7 +23,7 @@
         android:textColor="#ffffff"
         android:textSize="20sp"
         android:textAlignment="center"
-        android:background="#00cc00"
+        android:background="#cc0000"
         android:layout_width="50dp"
         android:layout_height="25dp"
         android:layout_marginLeft="28dp"
@@ -36,7 +36,7 @@
         android:id="@+id/edit"
         android:textAllCaps="false"
         android:textStyle="italic"
-        android:background="#00cc00"
+        android:background="#cc0000"
         android:layout_width="35dp"
         android:textColor="#ffffff"
         android:layout_marginTop="8dp"
@@ -51,7 +51,7 @@
 
 
     <ImageView
-        android:id="@+id/friend_delete"
+        android:id="@+id/enemy_delete"
         android:layout_width="35dp"
         android:layout_height="34dp"
         android:background="@drawable/icon_delete"
@@ -60,27 +60,27 @@
         android:layout_below="@+id/textView"/>
 
     <ImageView
-        android:id="@+id/friend"
-        android:background="@drawable/icon_friend"
+        android:id="@+id/enemy"
+        android:background="@drawable/icon_gcoding"
         android:layout_width="35dp"
         android:layout_height="34dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_alignTop="@+id/friend_delete"/>
+        android:layout_alignTop="@+id/enemy_delete"/>
 
     <EditText
-        android:id="@+id/friend_name"
+        android:id="@+id/enemy_name"
         android:textStyle="italic"
         android:textSize="25sp"
         android:layout_width="200dp"
         android:layout_height="45dp"
         android:layout_weight="0.90"
-        android:textColor="#00cc00"
+        android:textColor="#cc0000"
         android:gravity="center_vertical"
         android:text="郑奕嘉"
-        android:layout_toRightOf="@+id/friend"
-        android:layout_toEndOf="@+id/friend"
-        android:layout_alignTop="@+id/friend"/>
+        android:layout_toRightOf="@+id/enemy"
+        android:layout_toEndOf="@+id/enemy"
+        android:layout_alignTop="@+id/enemy"/>
 
     <LinearLayout
         android:orientation="vertical"
@@ -90,10 +90,10 @@
         android:layout_marginLeft="10dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/friend_delete">
+        android:layout_below="@+id/enemy_delete">
         <TextView
             android:text="NUMBER:"
-            android:textColor="#00cc00"
+            android:textColor="#cc0000"
             android:textStyle="italic"
             android:textSize="20sp"
             android:layout_width="wrap_content"
@@ -103,7 +103,7 @@
             android:layout_toEndOf="@+id/linearLayout"/>
 
         <EditText
-            android:id="@+id/friend_number"
+            android:id="@+id/enemy_number"
             android:textColor="#ffffff"
             android:layout_width="200dp"
             android:inputType="number"
@@ -111,7 +111,7 @@
             android:layout_marginLeft="180dp"/>
         <TextView
             android:text="LRTITUDE/LONGITUDE:"
-            android:textColor="#00cc00"
+            android:textColor="#cc0000"
             android:textStyle="italic"
             android:textSize="20sp"
             android:layout_width="wrap_content"
@@ -121,7 +121,7 @@
             android:layout_toEndOf="@+id/linearLayout"/>
 
         <EditText
-            android:id="@+id/friend_location"
+            android:id="@+id/enemy_location"
             android:textSize="20sp"
             android:textColor="#ffffff"
             android:layout_width="260dp"
@@ -131,7 +131,7 @@
 
         <TextView
             android:text="ALTITUDE:"
-            android:textColor="#00cc00"
+            android:textColor="#cc0000"
             android:textStyle="italic"
             android:textSize="20sp"
             android:layout_width="wrap_content"
@@ -141,7 +141,7 @@
             android:layout_toEndOf="@+id/linearLayout"/>
 
         <EditText
-            android:id="@+id/friend_altitude"
+            android:id="@+id/enemy_altitude"
             android:textSize="20sp"
             android:textColor="#ffffff"
             android:layout_width="200dp"
@@ -150,7 +150,7 @@
             />
         <TextView
             android:text="ACCURACY:"
-            android:textColor="#00cc00"
+            android:textColor="#cc0000"
             android:textStyle="italic"
             android:textSize="20sp"
             android:layout_width="wrap_content"
@@ -160,7 +160,7 @@
             android:layout_toEndOf="@+id/linearLayout"/>
 
         <EditText
-            android:id="@+id/friend_accuracy"
+            android:id="@+id/enemy_accuracy"
             android:textSize="20sp"
             android:textColor="#ffffff"
             android:layout_width="200dp"
@@ -169,7 +169,7 @@
             />
         <TextView
             android:text="NERREST ADDRESS:"
-            android:textColor="#00cc00"
+            android:textColor="#cc0000"
             android:textStyle="italic"
             android:textSize="20sp"
             android:layout_width="wrap_content"
@@ -179,7 +179,7 @@
             android:layout_toEndOf="@+id/linearLayout"/>
 
         <EditText
-            android:id="@+id/friend_address"
+            android:id="@+id/enemy_address"
             android:textSize="20sp"
             android:textColor="#ffffff"
             android:layout_width="200dp"
@@ -188,7 +188,7 @@
             />
         <TextView
             android:text="SECONDS SINCE LAST UPDATE:"
-            android:textColor="#00cc00"
+            android:textColor="#cc0000"
             android:textStyle="italic"
             android:textSize="20sp"
             android:layout_width="wrap_content"
@@ -198,7 +198,7 @@
             android:layout_toEndOf="@+id/linearLayout"/>
 
         <EditText
-            android:id="@+id/friend_last_update"
+            android:id="@+id/enemy_last_update"
             android:textSize="20sp"
             android:textColor="#ffffff"
             android:layout_width="200dp"
@@ -207,7 +207,7 @@
             />
         <TextView
             android:text="SECONDS UTIL NEXT UPDATE:"
-            android:textColor="#00cc00"
+            android:textColor="#cc0000"
             android:textStyle="italic"
             android:textSize="20sp"
             android:layout_width="wrap_content"
@@ -217,7 +217,7 @@
             android:layout_toEndOf="@+id/linearLayout"/>
 
         <EditText
-            android:id="@+id/friend_next_update"
+            android:id="@+id/enemy_next_update"
             android:textSize="20sp"
             android:textColor="#ffffff"
             android:layout_width="200dp"
@@ -241,12 +241,12 @@
         android:layout_alignParentStart="true"/>
 
     <Button
-        android:id="@+id/enemies_list"
+        android:id="@+id/friends_list"
         android:background="#000000"
         android:layout_width="180dp"
         android:layout_height="30dp"
-        android:text="ENEMIES"
-        android:textColor="#cc0000"
+        android:text="FRIENDS"
+        android:textColor="#00cc00"
         android:textSize="25sp"
         android:textStyle="italic"
         android:textAlignment="center"

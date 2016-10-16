@@ -2,4 +2,5 @@
     <string name="app_name">Tracer</string>
     
     <item name="tag" type="id"></item>
+    <item name="tag2" type="id"></item>
 </resources>
