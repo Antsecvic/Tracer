@@ -7,7 +7,6 @@ import android.telephony.SmsManager;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RadioGroup;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.baidu.location.BDLocation;
@@ -52,8 +51,8 @@ public class MainActivity extends Activity {
     Button findFriends;
     Button findEnemies;
     Button refresh;
-    TextView show_friends;
-    TextView show_enemies;
+    Button show_friends;
+    Button show_enemies;
     boolean isFirstLoc = true; // 是否首次定位
     ArrayList<Item> myFriends;
     ArrayList<Item> myEnemies;
@@ -139,12 +138,14 @@ public class MainActivity extends Activity {
 
                 if(myFriends == null && myEnemies == null)
                     Toast.makeText(getApplicationContext(), "发送失败", Toast.LENGTH_SHORT).show();
-                Toast.makeText(getApplicationContext(), "发送完毕", Toast.LENGTH_SHORT).show();
+
+                else
+                    Toast.makeText(getApplicationContext(), "发送完毕", Toast.LENGTH_SHORT).show();
                 mBaiduMap.clear();
             }
         });
 
-        show_friends = (TextView) findViewById(R.id.show_friends);
+        show_friends = (Button) findViewById(R.id.show_friends);
         show_friends.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -158,7 +159,7 @@ public class MainActivity extends Activity {
                         if ((myFriends.get(i).getLocation()).matches("\\d+[.]\\d+/\\d+[.]\\d+")) {
                             String[] ll = myFriends.get(i).getLocation().split("/");
                             LatLng point = new LatLng(Double.parseDouble(ll[0]), Double.parseDouble(ll[1]));
-                            BitmapDescriptor bitmap = BitmapDescriptorFactory.fromResource(R.drawable.icon_friend);
+                            BitmapDescriptor bitmap = BitmapDescriptorFactory.fromResource(R.drawable.friend_icon);
                             OverlayOptions option = new MarkerOptions()
                                     .position(point)
                                     .icon(bitmap)
@@ -181,7 +182,7 @@ public class MainActivity extends Activity {
             }
         });
 
-        show_enemies = (TextView) this.findViewById(R.id.show_enemies);
+        show_enemies = (Button) this.findViewById(R.id.show_enemies);
         show_enemies.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -195,7 +196,7 @@ public class MainActivity extends Activity {
                         if ((myEnemies.get(i).getLocation()).matches("\\d+[.]\\d+/\\d+[.]\\d+")) {
                             String[] ll = myEnemies.get(i).getLocation().split("/");
                             LatLng point = new LatLng(Double.parseDouble(ll[0]), Double.parseDouble(ll[1]));
-                            BitmapDescriptor bitmap = BitmapDescriptorFactory.fromResource(R.drawable.icon_gcoding);
+                            BitmapDescriptor bitmap = BitmapDescriptorFactory.fromResource(R.drawable.enemy_icon);
                             OverlayOptions option = new MarkerOptions()
                                     .position(point)
                                     .icon(bitmap)

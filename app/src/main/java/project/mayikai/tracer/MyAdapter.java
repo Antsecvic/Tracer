@@ -89,7 +89,7 @@ public class MyAdapter extends BaseAdapter {
 
 
 
-        holder.friend.setImageResource(R.drawable.icon_friend);
+        holder.friend.setImageResource(R.drawable.friend_icon);
         holder.delete.setImageResource(R.drawable.icon_delete);
         holder.name.setText(o.getName());
         holder.name.setTextColor(Color.GREEN);

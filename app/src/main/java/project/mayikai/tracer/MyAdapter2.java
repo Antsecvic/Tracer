@@ -87,7 +87,7 @@ public class MyAdapter2 extends BaseAdapter {
 
 
 
-        holder.enemy.setImageResource(R.drawable.icon_gcoding);
+        holder.enemy.setImageResource(R.drawable.enemy_icon);
         holder.delete.setImageResource(R.drawable.icon_delete);
         holder.name.setText(o.getName());
         holder.name.setTextColor(Color.RED);

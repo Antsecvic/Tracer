@@ -6,88 +6,100 @@
     android:layout_height="match_parent"
     tools:context="project.mayikai.hellobaidumap.MainActivity">
 
+
+
     <com.baidu.mapapi.map.MapView
         android:id="@+id/bmapView"
         android:layout_width="match_parent"
         android:layout_height="500dp"
         android:clickable="true"
-        android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:layout_above="@+id/enemies_list"/>
-    <Button
-        android:layout_width="180dp"
-        android:layout_height="wrap_content"
-        android:background="#000000"
-        android:text="ENEMIES"
-        android:textStyle="italic"
-        android:textSize="20sp"
-        android:textColor="#cc0000"
-        android:layout_alignBottom="@+id/friends"
-        android:layout_alignLeft="@+id/bmapView"
-        android:layout_alignStart="@+id/bmapView"
-        android:id="@+id/enemies_list"
-        />
-    <Button
-        android:layout_width="190dp"
-        android:layout_height="wrap_content"
-        android:background="#000000"
-        android:text="FRIENDS"
-        android:textSize="20sp"
-        android:textColor="#00cc00"
-        android:textStyle="italic"
-        android:id="@+id/friends"
-        android:layout_alignParentBottom="true"
-        android:layout_alignRight="@+id/bmapView"
-        android:layout_alignEnd="@+id/bmapView"/>
-    <Button
-        android:id="@+id/refresh"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:background="@drawable/refresh"
-        android:layout_above="@+id/enemies_list"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"/>
-    <ImageView
-        android:src="@drawable/show_friends"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="49dp"
-        android:layout_marginStart="49dp"
-        android:layout_alignParentTop="true"
-        android:layout_alignLeft="@+id/friends"
-        android:layout_alignStart="@+id/friends"
-        android:layout_marginTop="35dp"
-        android:id="@+id/imageView"/>
-    <TextView
-        android:id="@+id/show_friends"
-        android:text="显示好友位置"
-        android:clickable="true"
-        android:textSize="15sp"
-        android:textColor="#00cc00"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/imageView"
-        android:layout_toRightOf="@+id/imageView"
-        android:layout_toEndOf="@+id/imageView"/>
+        android:layout_below="@+id/imageView3"
+        android:layout_above="@+id/linearLayout2"/>
 
     <ImageView
-        android:src="@drawable/show_enemies"
+        android:background="@drawable/title"
+        android:layout_width="wrap_content"
+        android:layout_height="80dp"
+        android:id="@+id/imageView3"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"/>
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="00dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="false"
+        android:background="@drawable/radar_show"
+        android:id="@+id/imageView4"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="false"
+        android:layout_below="@+id/imageView3"
+        android:layout_above="@+id/linearLayout2"/>
+
+    <Button
+        android:id="@+id/refresh"
+        android:background="@drawable/refresh_button"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignBottom="@+id/bmapView"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:orientation="horizontal"
+        android:background="@drawable/row_bottom"
+        android:id="@+id/linearLayout2"
+        android:weightSum="1"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/enemies_button"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="20dp"
+            android:layout_alignBottom="@+id/friends"
+            android:layout_alignLeft="@+id/bmapView"
+            android:layout_alignStart="@+id/bmapView"
+            android:id="@+id/enemies_list"
+            />
+
+        <Button
+            android:layout_width="156dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/friends_button"
+            android:layout_marginLeft="40dp"
+            android:layout_marginTop="10dp"
+            android:id="@+id/friends"
+            />
+    </LinearLayout>
+
+    <Button
+        android:background="@drawable/locate_friends"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/imageView2"
-        android:layout_below="@+id/imageView"
-        android:layout_toLeftOf="@+id/show_friends"
-        android:layout_toStartOf="@+id/show_friends"/>
-    <TextView
+        android:id="@+id/show_friends"
+        android:layout_alignTop="@+id/imageView4"
+        android:layout_alignRight="@+id/refresh"
+        android:layout_alignEnd="@+id/refresh"/>
+
+    <Button
         android:id="@+id/show_enemies"
-        android:text="显示敌人位置"
-        android:clickable="true"
-        android:textSize="15sp"
-        android:textColor="#cc0000"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/imageView2"
-        android:layout_toRightOf="@+id/imageView2"
-        android:layout_toEndOf="@+id/imageView2"/>
+        android:background="@drawable/locate_enemies"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignTop="@+id/imageView4"/>
+
+
+
 </RelativeLayout>
