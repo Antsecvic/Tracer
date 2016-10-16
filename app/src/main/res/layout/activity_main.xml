@@ -73,7 +73,7 @@
             />
 
         <Button
-            android:layout_width="156dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/friends_button"
             android:layout_marginLeft="40dp"
