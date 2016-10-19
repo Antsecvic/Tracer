@@ -9,6 +9,7 @@ public class Item implements Serializable {
     private String name;
     private String number;
     private String location;
+    private double distance;
 
     public String getName(){
         return this.name;
@@ -32,6 +33,14 @@ public class Item implements Serializable {
 
     public void setLocation(String location){
         this.location = location;
+    }
+
+    public double getDistance(){
+        return this.distance;
+    }
+
+    public void setDistance(double distance){
+        this.distance = distance;
     }
 
 }

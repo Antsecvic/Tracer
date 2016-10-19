@@ -147,7 +147,7 @@
             android:layout_marginLeft="180dp"
             />
         <TextView
-            android:text="ACCURACY:"
+            android:text="ACCUARCY:"
             android:textColor="#00cc00"
             android:textStyle="italic"
             android:textSize="20sp"

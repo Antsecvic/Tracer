@@ -24,6 +24,7 @@ import com.baidu.mapapi.map.MarkerOptions;
 import com.baidu.mapapi.map.MyLocationConfiguration;
 import com.baidu.mapapi.map.MyLocationData;
 import com.baidu.mapapi.map.OverlayOptions;
+import com.baidu.mapapi.map.PolylineOptions;
 import com.baidu.mapapi.map.TextOptions;
 import com.baidu.mapapi.model.LatLng;
 
@@ -31,6 +32,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 此demo用来展示如何结合定位SDK实现定位，并使用MyLocationOverlay绘制定位位置 同时展示如何使用自定义图标绘制并点击时弹出泡泡
@@ -188,9 +190,31 @@ public class MainActivity extends Activity {
                                     .rotate(0)
                                     .position(point);
 
+                            double distance = DistanceOfTwoPoints(myLatitude,myLongitude,Double.parseDouble(ll[0]),
+                                    Double.parseDouble(ll[1]));
+                            myFriends.get(i).setDistance(distance);
+
+                            LatLng p1 = new LatLng(myLatitude,myLongitude);
+                            LatLng p2 = new LatLng(Double.parseDouble(ll[0]), Double.parseDouble(ll[1]));
+                            LatLng p3 = new LatLng((myLatitude + Double.parseDouble(ll[0]))/2,
+                                    (myLongitude+Double.parseDouble(ll[1]))/2);
+                            List<LatLng> points = new ArrayList<LatLng>();
+                            points.add(p1);
+                            points.add(p2);
+                            OverlayOptions ooPolyline = new PolylineOptions().width(10).color(0xff00ff00).points(points);
+
+                            OverlayOptions textOption2 = new TextOptions()
+                                    .bgColor(0xff00ff00)
+                                    .fontSize(30)
+                                    .fontColor(0xffff0000)
+                                    .text(Double.toString(myFriends.get(i).getDistance()) + "m")
+                                    .rotate(0)
+                                    .position(p3);
                             //在地图上添加该文字对象并显示
                             mBaiduMap.addOverlay(textOption);
                             mBaiduMap.addOverlay(option);
+                            mBaiduMap.addOverlay(ooPolyline);
+                            mBaiduMap.addOverlay(textOption2);
                         }
                     }
                 }
@@ -225,9 +249,31 @@ public class MainActivity extends Activity {
                                     .rotate(0)
                                     .position(point);
 
+
+                            double distance = DistanceOfTwoPoints(myLatitude,myLongitude,Double.parseDouble(ll[0]),
+                                    Double.parseDouble(ll[1]));
+                            myEnemies.get(i).setDistance(distance);
+                            LatLng p1 = new LatLng(myLatitude,myLongitude);
+                            LatLng p2 = new LatLng(Double.parseDouble(ll[0]), Double.parseDouble(ll[1]));
+                            LatLng p3 = new LatLng((myLatitude + Double.parseDouble(ll[0]))/2,
+                                    (myLongitude+Double.parseDouble(ll[1]))/2);
+                            List<LatLng> points = new ArrayList<LatLng>();
+                            points.add(p1);
+                            points.add(p2);
+                            OverlayOptions ooPolyline = new PolylineOptions().width(10).color(0xffff0000).points(points);
+
+                            OverlayOptions textOption2 = new TextOptions()
+                                    .bgColor(0xffff0000)
+                                    .fontSize(30)
+                                    .fontColor(0xff00ff00)
+                                    .text(Double.toString(myEnemies.get(i).getDistance()) + "m")
+                                    .rotate(0)
+                                    .position(p3);
                             //在地图上添加该文字对象并显示
                             mBaiduMap.addOverlay(textOption);
                             mBaiduMap.addOverlay(option);
+                            mBaiduMap.addOverlay(ooPolyline);
+                            mBaiduMap.addOverlay(textOption2);
                         }
                     }
                 }
@@ -321,5 +367,34 @@ public class MainActivity extends Activity {
         }
         //读取产生异常，返回null
         return null;
+    }
+
+    private static final double EARTH_RADIUS = 6378137;
+
+    private static double rad(double d) {
+        return d * Math.PI / 180.0;
+    }
+
+    /**
+     * 根据两点间经纬度坐标（double值），计算两点间距离，
+     *
+     * @param lat1
+     * @param lng1
+     * @param lat2
+     * @param lng2
+     * @return 距离：单位为米
+     */
+    public static double DistanceOfTwoPoints(double lat1,double lng1,
+                                             double lat2,double lng2) {
+        double radLat1 = rad(lat1);
+        double radLat2 = rad(lat2);
+        double a = radLat1 - radLat2;
+        double b = rad(lng1) - rad(lng2);
+        double s = 2 * Math.asin(Math.sqrt(Math.pow(Math.sin(a / 2), 2)
+                + Math.cos(radLat1) * Math.cos(radLat2)
+                * Math.pow(Math.sin(b / 2), 2)));
+        s = s * EARTH_RADIUS;
+        s = Math.round(s * 10000) / 10000;
+        return s;
     }
 }

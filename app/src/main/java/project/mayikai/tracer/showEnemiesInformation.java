@@ -58,9 +58,11 @@ public class showEnemiesInformation extends Activity {
         enemy_location = bundle.getString("location");
         position = Integer.parseInt(bundle.getString("position"));
 
+
         name.setText(enemy_name);
         number.setText(enemy_number);
         location.setText(enemy_location);
+
 
         radar.setOnClickListener(new View.OnClickListener() {
             @Override

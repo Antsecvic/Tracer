@@ -18,6 +18,7 @@ public class showInformation extends Activity {
     String friend_name;
     String friend_number;
     String friend_location;
+    double distance;
     int position;
     EditText number;
     EditText location;
