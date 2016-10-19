@@ -48,6 +48,14 @@
         android:layout_alignBottom="@+id/bmapView"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"/>
+    <Button
+        android:id="@+id/locate_myself"
+        android:background="@drawable/locate_button"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignBottom="@+id/bmapView"
+        android:layout_alignLeft="@+id/show_enemies"
+        android:layout_alignStart="@+id/show_enemies"/>
 
     <LinearLayout
         android:layout_width="match_parent"

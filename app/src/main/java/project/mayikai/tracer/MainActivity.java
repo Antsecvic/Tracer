@@ -53,6 +53,7 @@ public class MainActivity extends Activity {
     Button refresh;
     Button show_friends;
     Button show_enemies;
+    Button locate_myself;
     boolean isFirstLoc = true; // 是否首次定位
     ArrayList<Item> myFriends;
     ArrayList<Item> myEnemies;
@@ -69,7 +70,7 @@ public class MainActivity extends Activity {
         mMapView = (MapView) findViewById(R.id.bmapView);
         mBaiduMap = mMapView.getMap();
 
-        mCurrentMode = MyLocationConfiguration.LocationMode.FOLLOWING;
+        mCurrentMode = MyLocationConfiguration.LocationMode.NORMAL;
         mCurrentMarker = null;
         mBaiduMap
                 .setMyLocationConfigeration(new MyLocationConfiguration(
@@ -87,6 +88,20 @@ public class MainActivity extends Activity {
         mLocClient.setLocOption(option);
         mLocClient.start();
 
+        locate_myself = (Button) findViewById(R.id.locate_myself);
+        locate_myself.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                isFirstLoc = true;
+                mLocClient.registerLocationListener(myListener);
+                final LocationClientOption option = new LocationClientOption();
+                option.setOpenGps(true); // 打开gps
+                option.setCoorType("bd09ll"); // 设置坐标类型
+                option.setScanSpan(1000);
+                mLocClient.setLocOption(option);
+                mLocClient.start();
+            }
+        });
 
 
         findFriends = (Button) findViewById(R.id.friends);
@@ -102,7 +117,7 @@ public class MainActivity extends Activity {
         findEnemies.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this,EnemiesList.class);
+                Intent intent = new Intent(MainActivity.this, EnemiesList.class);
                 startActivity(intent);
             }
         });
@@ -113,30 +128,30 @@ public class MainActivity extends Activity {
         refresh.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                try{
-                    myFriends = (ArrayList<Item>)getObject("friendsList.dat");
-                }catch (NullPointerException e){
+                try {
+                    myFriends = (ArrayList<Item>) getObject("friendsList.dat");
+                } catch (NullPointerException e) {
                     e.printStackTrace();
                 }
-                try{
-                    myEnemies = (ArrayList<Item>)getObject("enemiesList.dat");
-                }catch (NullPointerException e){
+                try {
+                    myEnemies = (ArrayList<Item>) getObject("enemiesList.dat");
+                } catch (NullPointerException e) {
                     e.printStackTrace();
                 }
 
                 SmsManager manager = SmsManager.getDefault();
-                for(int i = 0;i < myFriends.size();i++) {
+                for (int i = 0; i < myFriends.size(); i++) {
                     ArrayList<String> list = manager.divideMessage("where are you");
                     for (String text : list)
                         manager.sendTextMessage(myFriends.get(i).getNumber(), null, text, null, null);
                 }
-                for(int i = 0;i < myEnemies.size();i++) {
+                for (int i = 0; i < myEnemies.size(); i++) {
                     ArrayList<String> list = manager.divideMessage("where are you");
                     for (String text : list)
                         manager.sendTextMessage(myEnemies.get(i).getNumber(), null, text, null, null);
                 }
 
-                if(myFriends == null && myEnemies == null)
+                if (myFriends == null && myEnemies == null)
                     Toast.makeText(getApplicationContext(), "发送失败", Toast.LENGTH_SHORT).show();
 
                 else
@@ -156,7 +171,7 @@ public class MainActivity extends Activity {
                 }
                 if (null != myFriends) {
                     for (int i = 0; i < myFriends.size(); i++) {
-                        if ((myFriends.get(i).getLocation()).matches("\\d+[.]\\d+/\\d+[.]\\d+")) {
+                        if (myFriends.get(i).getLocation() != null && (myFriends.get(i).getLocation()).matches("\\d+[.]\\d+/\\d+[.]\\d+")) {
                             String[] ll = myFriends.get(i).getLocation().split("/");
                             LatLng point = new LatLng(Double.parseDouble(ll[0]), Double.parseDouble(ll[1]));
                             BitmapDescriptor bitmap = BitmapDescriptorFactory.fromResource(R.drawable.friend_icon);
@@ -193,7 +208,7 @@ public class MainActivity extends Activity {
                 }
                 if (null != myEnemies) {
                     for (int i = 0; i < myEnemies.size(); i++) {
-                        if ((myEnemies.get(i).getLocation()).matches("\\d+[.]\\d+/\\d+[.]\\d+")) {
+                        if (myEnemies.get(i).getLocation() != null && (myEnemies.get(i).getLocation()).matches("\\d+[.]\\d+/\\d+[.]\\d+")) {
                             String[] ll = myEnemies.get(i).getLocation().split("/");
                             LatLng point = new LatLng(Double.parseDouble(ll[0]), Double.parseDouble(ll[1]));
                             BitmapDescriptor bitmap = BitmapDescriptorFactory.fromResource(R.drawable.enemy_icon);
@@ -236,7 +251,7 @@ public class MainActivity extends Activity {
             MyLocationData locData = new MyLocationData.Builder()
                     .accuracy(location.getRadius())
                             // 此处设置开发者获取到的方向信息，顺时针0-360
-                    .direction(100).latitude(location.getLatitude())
+                    .direction(0).latitude(location.getLatitude())
                     .longitude(location.getLongitude()).build();
             mBaiduMap.setMyLocationData(locData);
             if (isFirstLoc) {
