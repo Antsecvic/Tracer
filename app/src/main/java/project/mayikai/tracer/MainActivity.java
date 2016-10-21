@@ -5,7 +5,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.telephony.SmsManager;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
@@ -56,6 +59,7 @@ public class MainActivity extends Activity {
     Button show_friends;
     Button show_enemies;
     Button locate_myself;
+    ImageView scanline;
     boolean isFirstLoc = true; // 是否首次定位
     ArrayList<Item> myFriends;
     ArrayList<Item> myEnemies;
@@ -130,6 +134,10 @@ public class MainActivity extends Activity {
         refresh.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                scanline = (ImageView) findViewById(R.id.scanline);
+                final Animation anim = AnimationUtils.loadAnimation(MainActivity.this,R.anim.rotateanim);
+                anim.setFillAfter(true);
+                scanline.startAnimation(anim);
                 try {
                     myFriends = (ArrayList<Item>) getObject("friendsList.dat");
                 } catch (NullPointerException e) {
@@ -142,17 +150,20 @@ public class MainActivity extends Activity {
                 }
 
                 SmsManager manager = SmsManager.getDefault();
-                for (int i = 0; i < myFriends.size(); i++) {
-                    ArrayList<String> list = manager.divideMessage("where are you");
-                    for (String text : list)
-                        manager.sendTextMessage(myFriends.get(i).getNumber(), null, text, null, null);
+                if(null != myFriends) {
+                    for (int i = 0; i < myFriends.size(); i++) {
+                        ArrayList<String> list = manager.divideMessage("where are you");
+                        for (String text : list)
+                            manager.sendTextMessage(myFriends.get(i).getNumber(), null, text, null, null);
+                    }
                 }
-                for (int i = 0; i < myEnemies.size(); i++) {
-                    ArrayList<String> list = manager.divideMessage("where are you");
-                    for (String text : list)
-                        manager.sendTextMessage(myEnemies.get(i).getNumber(), null, text, null, null);
+                if(null != myEnemies) {
+                    for (int i = 0; i < myEnemies.size(); i++) {
+                        ArrayList<String> list = manager.divideMessage("where are you");
+                        for (String text : list)
+                            manager.sendTextMessage(myEnemies.get(i).getNumber(), null, text, null, null);
+                    }
                 }
-
                 if (myFriends == null && myEnemies == null)
                     Toast.makeText(getApplicationContext(), "发送失败", Toast.LENGTH_SHORT).show();
 

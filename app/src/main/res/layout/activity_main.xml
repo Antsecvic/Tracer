@@ -108,6 +108,13 @@
         android:layout_alignParentEnd="true"
         android:layout_alignTop="@+id/imageView4"/>
 
+    <ImageView
+        android:id="@+id/scanline"
+        android:background="@drawable/scanline"
+        android:layout_width="wrap_content"
+        android:layout_height="190dp"
+        android:layout_centerHorizontal="true"
+        android:layout_above="@+id/refresh"/>
 
 
 </RelativeLayout>
