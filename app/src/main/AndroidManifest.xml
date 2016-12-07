@@ -42,7 +42,8 @@
             </intent-filter>
         </receiver>
 
-        <activity android:name=".MainActivity">
+        <activity android:name=".MainActivity"
+                  android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
@@ -50,16 +51,20 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".FriendsList">
+        <activity android:name=".FriendsList"
+                  android:launchMode="singleTask">
         </activity>
 
-        <activity android:name=".showInformation">
+        <activity android:name=".showInformation"
+                  android:launchMode="singleTask">
         </activity>
 
-        <activity android:name=".EnemiesList">
+        <activity android:name=".EnemiesList"
+                  android:launchMode="singleTask">
         </activity>
 
-        <activity android:name=".showEnemiesInformation">
+        <activity android:name=".showEnemiesInformation"
+                  android:launchMode="singleTask">
         </activity>
     </application>
 
